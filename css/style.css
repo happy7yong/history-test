@@ -1,0 +1,43 @@
+.slider-container {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* 스크롤 스냅을 적용하여 슬라이드가 하나씩 고정되도록 */
+  width: 100%;
+}
+
+.slider {
+  display: flex;
+}
+
+
+.slide {
+  flex: 0 0 100%; /* 슬라이드가 전체 너비를 차지하도록 */
+  scroll-snap-align: start; /* 슬라이드가 시작 부분에 스냅되도록 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* 슬라이드 높이 조정 */
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* 줄 바꿈을 위해 추가 */
+  margin-top: 10px;
+  gap: 5px;
+}
+
+.nav-btn {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  background-color: blue;
+}
+
