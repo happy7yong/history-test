@@ -1,29 +1,52 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const slider = document.querySelector('.slider');
-  const navigation = document.querySelector('.navigation');
-  const slides = slider.querySelectorAll('.slide');
-  const slideCount = slides.length;
+const slider = document.getElementById('slider');
+const navDots = document.getElementById('navDots');
+const slides = document.querySelectorAll('.slide');
+let isDragging = false;
+let startX, currentTranslate = 0, prevTranslate = 0, currentIndex = 0;
 
-  // 슬라이드 갯수에 따라 네비게이션 버튼 생성
-  for (let i = 0; i < slideCount; i++) {
-    const navBtn = document.createElement('div');
-    navBtn.classList.add('nav-btn');
-    if (i === 0) navBtn.classList.add('active'); // 첫번째 버튼 활성화
-    navBtn.addEventListener('click', () => {
-      slider.scrollTo({
-        left: i * slider.clientWidth,
-        behavior: 'smooth'
-      });
-      updateNavigation(i);
+// 동적으로 네비게이션 점 생성
+function createNavDots() {
+  slides.forEach((_, index) => {
+    const dot = document.createElement('div');
+    dot.classList.add('nav-dot');
+    if (index === 0) dot.classList.add('active');
+    dot.dataset.index = index;
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateSlider();
     });
-    navigation.appendChild(navBtn);
-  }
+    navDots.appendChild(dot);
+  });
+}
+createNavDots();
 
-  // 네비게이션 상태 업데이트
-  function updateNavigation(activeIndex) {
-    const navBtns = document.querySelectorAll('.nav-btn');
-    navBtns.forEach((btn, index) => {
-      btn.classList.toggle('active', index === activeIndex);
-    });
-  }
+const dots = document.querySelectorAll('.nav-dot');
+
+// 마우스 드래그 이벤트
+slider.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  startX = e.pageX - slider.offsetLeft;
+  slider.style.cursor = 'grabbing';
 });
+
+slider.addEventListener('mouseup', () => {
+  isDragging = false;
+  slider.style.cursor = 'grab';
+  updateSlider();
+});
+
+slider.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  const currentX = e.pageX - slider.offsetLeft;
+  const deltaX = currentX - startX;
+  slider.style.transform = `translateX(${prevTranslate + deltaX}px)`;
+});
+
+// 슬라이더 업데이트
+function updateSlider() {
+  currentTranslate = -currentIndex * slider.offsetWidth;
+  prevTranslate = currentTranslate;
+  slider.style.transform = `translateX(${currentTranslate}px)`;
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[currentIndex].classList.add('active');
+}

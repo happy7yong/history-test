@@ -1,43 +1,57 @@
-.slider-container {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory; /* 스크롤 스냅을 적용하여 슬라이드가 하나씩 고정되도록 */
-  width: 100%;
-}
-
-.slider {
-  display: flex;
-}
-
-
-.slide {
-  flex: 0 0 100%; /* 슬라이드가 전체 너비를 차지하도록 */
-  scroll-snap-align: start; /* 슬라이드가 시작 부분에 스냅되도록 */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px; /* 슬라이드 높이 조정 */
-  box-sizing: border-box;
-  border: 1px solid #ccc;
+  height: 100vh;
   background-color: #f0f0f0;
 }
-
-.navigation {
+/* 슬라이더 컨테이너 */
+.slider-container {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* 슬라이드 아이템 */
+.slider {
+  display: flex;
+  transition: transform 0.3s ease;
+  cursor: grab;
+}
+.slide {
+  min-width: 100%;
+  height: 300px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* 줄 바꿈을 위해 추가 */
-  margin-top: 10px;
-  gap: 5px;
+  align-items: center;
+  font-size: 24px;
+  color: white;
 }
+.slide:nth-child(1) { background-color: #ff6b6b; }
+.slide:nth-child(2) { background-color: #4ecdc4; }
+.slide:nth-child(3) { background-color: #ffd166; }
 
-.nav-btn {
-  width: 10px;
-  height: 10px;
+/* 네비게이션 */
+.nav-dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  background-color: gray;
   cursor: pointer;
 }
-
-.nav-btn.active {
-  background-color: blue;
+.nav-dot.active {
+  background-color: white;
 }
-
