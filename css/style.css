@@ -1,57 +1,86 @@
-body {
-  font-family: Arial, sans-serif;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
 }
-/* 슬라이더 컨테이너 */
-.slider-container {
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.history-banner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.slides-container {
   position: relative;
-  width: 80%;
-  max-width: 800px;
   overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  height: 500px;
 }
-/* 슬라이드 아이템 */
-.slider {
+
+.slides-wrapper {
   display: flex;
   transition: transform 0.3s ease;
-  cursor: grab;
+  height: 100%;
 }
+
 .slide {
-  min-width: 100%;
-  height: 300px;
+  flex: 0 0 100%;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.history-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-content: flex-start;
+  height: 100%;
+}
+
+.history-item {
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 5px;
+  height: auto;
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  width: calc(50% - 10px);
+}
+
+.history-item h3 {
+  margin-bottom: 10px;
+}
+
+.navigation {
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: white;
+  margin-top: 20px;
 }
-.slide:nth-child(1) { background-color: #ff6b6b; }
-.slide:nth-child(2) { background-color: #4ecdc4; }
-.slide:nth-child(3) { background-color: #ffd166; }
 
-/* 네비게이션 */
-.nav-dots {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-}
 .nav-dot {
-  width: 12px;
-  height: 12px;
-  background-color: rgba(255, 255, 255, 0.5);
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
   cursor: pointer;
 }
+
 .nav-dot.active {
-  background-color: white;
+  background-color: #333;
+}
+
+.page-info {
+  text-align: center;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .history-item {
+    width: 100%;
+  }
 }
